@@ -30,17 +30,17 @@
     <header class=" mx-auto py-7 container px-4 lg:px-0 ">
         <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#002C5C] py-2">Job Application Tracker</h1>
         <div class="grid grid-cols-3 gap-8 mt-[20px]">
-            <div class="bg-[#FFFFFF] p-4  shadow-lg rounded-[8px]  border border-gray-200">
+            <div class="bg-[#FFFFFF] p-4  shadow-lg rounded-[8px]  border border-cyan-200"  >
                 <p>Total</p>
                 <p id="total" class="text-[002C5C] text-[20px] font-bold">0</p>
             </div>
 
-            <div class="bg-[#FFFFFF] p-4 rounded-[8px] border border-gray-200">
+            <div class="bg-[#FFFFFF] p-4 rounded-[8px] border border-cyan-200">
                 <p>Interview</p>
                 <p id="InterviewCount" class="text-green-700 text-[20px] font-bold">0</p>
             </div>
 
-            <div class="bg-[#FFFFFF] p-4  rounded-[8px] border border-gray-200">
+            <div class="bg-[#FFFFFF] p-4  rounded-[8px] border border-cyan-200">
                 <p>Rejected</p>
                 <p id="RejectedCount" class="text-red-700 text-[20px] font-bold">0</p>
             </div>
@@ -48,26 +48,27 @@
     </header>
     <hr class="my-5 container mx-auto text-slate-200 px-4 lg:px-0">
     <main class=" container mx-auto px-4 lg:px-0 ">
+        <!-- delete section -->
         <section>
             <div class="flex justify-between items-center">
                 <div>
                     <h3 class="text-[#002C5C] text-[20px] py-2 font-semibold">Available Jobs</h3>
                 </div>
-                <div class="flex gap-2">
-                    <p>0</p>
-                    <p class="text-[#64748B]">jobs</p>
+                <div class="flex gap-1">
+                    <p id="total-len-jobs">0</p>
+                    <p " class="text-[#64748B]">jobs</p>
                 </div>
             </div>
             <!-- button section  -->
             <div class="mb-6 space-x-1 lg:space-x-3">
                 <button onclick="toggleStyle('all-filter-btn')"
-                    class="bg-[#3B82F6] text-white px-9 py-2 rounded-sm border border-gray-400 "
+                    class="bg-[#3B82F6] text-white px-9 py-2 rounded-sm border  btn border-blue-500"
                     id="all-filter-btn">All</button>
-                <button onclick="toggleStyle('thriving-filter-btn')"
-                    class="bg-[#FFFFFF] px-5 py-2 rounded-sm border  border-gray-400"
+                <button onclick="toggleStyle('Interview-filter-btn')"
+                    class="bg-gray-200 px-5 py-2 rounded-sm border btn border-blue-500 "
                     id="Interview-filter-btn">Interview</button>
-                <button onclick="toggleStyle('struggling-filter-btn')"
-                    class="bg-[#FFFFFF] px-5 py-2 rounded-sm border  border-gray-400"
+                <button onclick="toggleStyle('Rejected-filter-btn')"
+                    class="bg-gray-200 px-5 py-2 rounded-sm border btn border-blue-500 "
                     id="Rejected-filter-btn">Rejected</button>
             </div>
         </section>
@@ -82,23 +83,23 @@
             </div>
         </section>
                    <!-- all card section  -->
-        <section class="space-y-7 mb-[100px] ">
-            <!-- card 1-- -->
+        <section id="allCards" class="space-y-7 mb-[100px] ">
+            <!--  card 1-- -->
             <div class="flex justify-between border border-gray-300 rounded-sm shadow-lg bg-[#FFFFFF] md:gap-9  ">
                 <div class="p-5">
                     <h2 class=" text-[#002C5C] text-[20px] font-semibold">Mobile First Corp</h2>
                     <p class="text-[#64748B]">React Native Developer</p>
                     <p class="py-4 text-[#64748B]">Remote . Full-time . $130,000 - $175,000</p>
-                    <button class="btn btn-active">Not Applied</button>
+                    <button id="NotAppliedBtn" class="btn btn-active">Not Applied</button>
                     <p class="py-3">Build cross-platform mobile applications using React Native. Work on products used
                         by millions of users worldwide.</p>
                     <div class="flex gap-5">
-                        <button class="btn btn-outline btn-success">interview</button>
-                        <button class="btn btn-outline btn-error">Rejected</button>
+                        <button id="interviewCountBtn" class="btn btn-outline btn-success">interview</button>
+                        <button id="RejectedCountBtn" class="btn btn-outline btn-error">Rejected</button>
                     </div>
                 </div>
                 <div>
-                    <p
+                    <p id="deleteBnt"
                         class="p-2 mt-4 mr-4 border border-slate-300 rounded-full hover:bg-red-500 duration-500 cursor-pointer hover:text-gray-50">
                         <i class="fa-regular fa-trash-can"></i>
                     </p>
@@ -110,16 +111,16 @@
                     <h2 class=" text-[#002C5C] text-[20px] font-semibold">WebFlow Agency</h2>
                     <p class="text-[#64748B]">Web Designer & Developer</p>
                     <p class="py-4 text-[#64748B]">Los Angeles, CA . Part-time . $80,000 - $120,000</p>
-                    <button class="btn btn-active">Not Applied</button>
+                    <button  id="NotAppliedBtn" class="btn btn-active">Not Applied</button>
                     <p class="py-3">Create stunning web experiences for high-profile clients. Must have portfolio and
                         experience with modern web design trends.</p>
                     <div class="flex gap-5">
-                        <button class="btn btn-outline btn-success">interview</button>
-                        <button class="btn btn-outline btn-error">Rejected</button>
+                        <button id="interviewCountBtn" class="btn btn-outline btn-success">interview</button>
+                        <button  id="RejectedCountBtn" class="btn btn-outline btn-error">Rejected</button>
                     </div>
                 </div>
                 <div>
-                    <p
+                    <p id="deleteBnt"
                         class="p-2 mt-4 mr-4 border border-slate-300 rounded-full hover:bg-red-500 duration-500 cursor-pointer hover:text-gray-50">
                         <i class="fa-regular fa-trash-can"></i>
                     </p>
@@ -131,17 +132,17 @@
                     <h2 class=" text-[#002C5C] text-[20px] font-semibold">DataViz Solutions</h2>
                     <p class="text-[#64748B]">Data Visualization Specialist</p>
                     <p class="py-4 text-[#64748B]">Boston, MA . Full-time . $125,000 - $165,000</p>
-                    <button class="btn btn-active">Not Applied</button>
+                    <button  id="NotAppliedBtn" class="btn btn-active">Not Applied</button>
                     <p class="py-3">Transform complex data into compelling visualizations. Required skills: D3.js,
                         React, and strong analytical thinking.
                     </p>
                     <div class="flex gap-5">
-                        <button class="btn btn-outline btn-success">interview</button>
-                        <button class="btn btn-outline btn-error">Rejected</button>
+                        <button id="interviewCountBtn" class="btn btn-outline btn-success">interview</button>
+                        <button  id="RejectedCountBtn" class="btn btn-outline btn-error">Rejected</button>
                     </div>
                 </div>
                 <div>
-                    <p
+                    <p id="deleteBnt"
                         class="p-2 mt-4 mr-4 border border-slate-300 rounded-full hover:bg-red-500 duration-500 cursor-pointer hover:text-gray-50">
                         <i class="fa-regular fa-trash-can"></i>
                     </p>
@@ -153,16 +154,16 @@
                     <h2 class=" text-[#002C5C] text-[20px] font-semibold">CloudFirst Inc</h2>
                     <p class="text-[#64748B]">Backend Developer</p>
                     <p class="py-4 text-[#64748B]">Seattle, WA . Full-time . $140,000 - $190,000</p>
-                    <button class="btn btn-active">Not Applied</button>
+                    <button  id="NotAppliedBtn" class="btn btn-active">Not Applied</button>
                     <p class="py-3">Design and maintain scalable backend systems using Python and AWS. Work with modern
                         DevOps practices and cloud infrastructure.</p>
                     <div class="flex gap-5">
-                        <button class="btn btn-outline btn-success">interview</button>
-                        <button class="btn btn-outline btn-error">Rejected</button>
+                        <button id="interviewCountBtn"  class="btn btn-outline btn-success">interview</button>
+                        <button  id="RejectedCountBtn" class="btn btn-outline btn-error">Rejected</button>
                     </div>
                 </div>
                 <div>
-                    <p
+                    <p id="deleteBnt"
                         class="p-2 mt-4 mr-4 border border-slate-300 rounded-full hover:bg-red-500 duration-500 cursor-pointer hover:text-gray-50">
                         <i class="fa-regular fa-trash-can"></i>
                     </p>
@@ -174,16 +175,16 @@
                     <h2 class=" text-[#002C5C] text-[20px] font-semibold">Innovation Labs</h2>
                     <p class="text-[#64748B]">UI/UX Engineer</p>
                     <p class="py-4 text-[#64748B]">Austin, TX . Full-time . $110,000 - $150,000</p>
-                    <button class="btn btn-active">Not Applied</button>
+                    <button  id="NotAppliedBtn" class="btn btn-active">Not Applied</button>
                     <p class="py-3">Create beautiful and functional user interfaces for our suite of products. Strong
                         design skills and frontend development expertise required.</p>
                     <div class="flex gap-5">
-                        <button class="btn btn-outline btn-success">interview</button>
-                        <button class="btn btn-outline btn-error">Rejected</button>
+                        <button id="interviewCountBtn" class="btn btn-outline btn-success">interview</button>
+                        <button  id="RejectedCountBtn" class="btn btn-outline btn-error">Rejected</button>
                     </div>
                 </div>
                 <div>
-                    <p
+                    <p id="deleteBnt"
                         class="p-2 mt-4 mr-4 border border-slate-300 rounded-full hover:bg-red-500 duration-500 cursor-pointer hover:text-gray-50">
                         <i class="fa-regular fa-trash-can"></i>
                     </p>
@@ -195,16 +196,16 @@
                     <h2 class=" text-[#002C5C] text-[20px] font-semibold">MegaCorp Solutions</h2>
                     <p class="text-[#64748B]">JavaScript Developer</p>
                     <p class="py-4 text-[#64748B]">New York, NY . Full-time . $130,000 - $170,00</p>
-                    <button class="btn btn-active">Not Applied</button>
+                    <button  id="NotAppliedBtn" class="btn btn-active">Not Applied</button>
                     <p class="py-3">Build enterprise applications with JavaScript and modern frameworks. We offer
                         competitive compensation, health insurance, and professional development opportunities.</p>
                     <div class="flex gap-5">
-                        <button class="btn btn-outline btn-success">interview</button>
-                        <button class="btn btn-outline btn-error">Rejected</button>
+                        <button id="interviewCountBtn" class="btn btn-outline btn-success">interview</button>
+                        <button  id="RejectedCountBtn" class="btn btn-outline btn-error">Rejected</button>
                     </div>
                 </div>
                 <div>
-                    <p
+                    <p id="deleteBnt"
                         class="p-2 mt-4 mr-4 border border-slate-300 rounded-full hover:bg-red-500 duration-500 cursor-pointer hover:text-gray-50">
                         <i class="fa-regular fa-trash-can"></i>
                     </p>
@@ -216,16 +217,16 @@
                     <h2 class=" text-[#002C5C] text-[20px] font-semibold">Startup</h2>
                     <p class="text-[#64748B]">Full Stack Engineer</p>
                     <p class="py-4 text-[#64748B]">Remote . Full-time . $120,000 - $160,000</p>
-                    <button class="btn btn-active">Not Applied</button>
+                    <button  id="NotAppliedBtn" class="btn btn-active">Not Applied</button>
                     <p class="py-3">Join our fast-growing startup and work on our core platform. Experience with Node.js
                         and React required. Great benefits and equity package included.</p>
                     <div class="flex gap-5">
-                        <button class="btn btn-outline btn-success">interview</button>
-                        <button class="btn btn-outline btn-error">Rejected</button>
+                        <button id="interviewCountBtn" class="btn btn-outline btn-success">interview</button>
+                        <button  id="RejectedCountBtn"  class="btn btn-outline btn-error">Rejected</button>
                     </div>
                 </div>
                 <div>
-                    <p
+                    <p id="deleteBnt"
                         class="p-2 mt-4 mr-4 border border-slate-300 rounded-full hover:bg-red-500 duration-500 cursor-pointer hover:text-gray-50">
                         <i class="fa-regular fa-trash-can"></i>
                     </p>
@@ -237,17 +238,17 @@
                     <h2 class=" text-[#002C5C] text-[20px] font-semibold">TechCorp Industries</h2>
                     <p class="text-[#64748B]">Senior Frontend Developer</p>
                     <p class="py-4 text-[#64748B]">San Francisco, CA . Full-time . $130,000 - $175,000</p>
-                    <button class="btn btn-active">Not Applied</button>
+                    <button  id="NotAppliedBtn" class="btn btn-active">Not Applied</button>
                     <p class="py-3">We are looking for an experienced Frontend Developer to build scalable web
                         applications using React and TypeScript. You will work with a talented team on cutting-edge
                         projects.</p>
                     <div class="flex gap-5">
-                        <button class="btn btn-outline btn-success">interview</button>
-                        <button class="btn btn-outline btn-error">Rejected</button>
+                        <button id="interviewCountBtn" class="btn btn-outline btn-success">interview</button>
+                        <button  id="RejectedCountBtn" class="btn btn-outline btn-error">Rejected</button>
                     </div>
                 </div>
                 <div>
-                    <p
+                    <p id="deleteBnt"
                         class="p-2 mt-4 mr-4 border border-slate-300 rounded-full hover:bg-red-500 duration-500 cursor-pointer hover:text-gray-50">
                         <i class="fa-regular fa-trash-can"></i>
                     </p>
