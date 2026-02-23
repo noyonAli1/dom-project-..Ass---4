@@ -1,139 +1,227 @@
-let InterviewList = [];
-let RejectedList = [];
 
+///...............
 
+let Interviewbox = [];
+let Rejectedbox = [];
+let currentStatus = 'all';
 
-//3 ta count hobe akhane first je 3 ta count ace
-//ata holo jobs
-const totaljobs = document.getElementById('total-len-jobs');
-const total = document.getElementById('total');
-const InterviewCount = document.getElementById('InterviewCount');
-const RejectedCount = document.getElementById('RejectedCount');
+let total = document.getElementById("total");
+let interview = document.getElementById("interview");
+let rejected = document.getElementById("rejected");
 
-///je 3 ta buttob ace 
+const allcardParent = document.getElementById("all-card");
+const mainContainer = document.querySelector('main');
+const filterSectoin = document.getElementById('filtered-section');
 
-const allfilterbtn = document.getElementById('all-filter-btn');
-const Interviewfilterbtn = document.getElementById('Interview-filter-btn');
-const Rejectedfilterbtn = document.getElementById('Rejected-filter-btn');
+const allfilterbtn = document.getElementById("all-filter-btn");
+const interviebtn = document.getElementById("Interview-filter-btn");
+const rejectedbtn = document.getElementById("Rejected-filter-btn");
 
+const noJobs = document.getElementById('jobs-available');
+const jobsCount = document.getElementById("Available-Jobs");
 
-//akhon all card 
-const allCards = document.getElementById('allCards');
-const filtersection = document.getElementById('filter-section');
+function calculateCount(){
 
+    const totalJobs = allcardParent.children.length;
 
-function calculatorCounttotal() {
-    totaljobs.innerText = allCards.children.length;
-    total.innerText = allCards.children.length;
-    InterviewCount.innerText = InterviewList.length;
-    RejectedCount.innerText = RejectedList.length;
-}
-calculatorCounttotal();
+    total.innerText = totalJobs;
+    interview.innerText = Interviewbox.length;
+    rejected.innerText = Rejectedbox.length;
 
-
-function toggleStyle(id) {
-
-    allfilterbtn.classList.add('bg-gray-200', 'text-black');
-    Interviewfilterbtn.classList.add('bg-gray-200', 'text-black');
-    Rejectedfilterbtn.classList.add('bg-gray-200', 'text-black');
-
-    allfilterbtn.classList.remove('bg-[#3B82F6]', 'text-white');
-    Interviewfilterbtn.classList.remove('bg-[#3B82F6]', 'text-white');
-    Rejectedfilterbtn.classList.remove('bg-[#3B82F6]', 'text-white');
-
-
-    const selected = document.getElementById(id)//this is the button that clicked for filter
-
-    selected.classList.remove('bg-gray-200', 'text-black');
-    selected.classList.add('bg-[#3B82F6]', 'text-white');
-
+    if(currentStatus === 'Interview-filter-btn'){
+        jobsCount.innerText = `${Interviewbox.length} of ${totalJobs} jobs`;
+    }
+    else if(currentStatus === 'Rejected-filter-btn'){
+        jobsCount.innerText = `${Rejectedbox.length} of ${totalJobs} jobs`;
+    }
+    else{
+        jobsCount.innerText = `${totalJobs} jobs`;
+    }
 }
 
-allCards.addEventListener('click', function (event) {
-    if (event.target.classList.contains('interviewCountBtn')) {
-        const parenNode = event.target.parentNode.parentNode;
-
-        const first = parenNode.querySelector('.first').innerText;
-        const firstt = parenNode.querySelector('.firstt').innerText;
-        const firsttt = parenNode.querySelector('.firsttt').innerText;
-        const NotAppliedBtn = parenNode.querySelector('.NotAppliedBtn').innerText;
-        
-        const firstttt = parenNode.querySelector('.firstttt').innerText;
+calculateCount();
 
 
-        const cardInfo = {
-            first,
-            firstt,
-            firsttt,
-            NotAppliedBtn,
-            firstttt
-        }
+//...........................
+function toggleStyle(id){
 
-        const firstace = InterviewList.find(item => item.first == cardInfo.first);
-        NotAppliedBtn.innerText = ''
-        if (!firstace) {
-            InterviewList.push(cardInfo)
-        }
-        renderTriving()
+    // remove active color
+    allfilterbtn.classList.remove('bg-[#3B82F6]','text-white');
+    interviebtn.classList.remove('bg-[#3B82F6]','text-white');
+    rejectedbtn.classList.remove('bg-[#3B82F6]','text-white');
+
+    // default style (আগের মতো)
+    allfilterbtn.classList.add('bg-[#FFFFFF]','text-black');
+    interviebtn.classList.add('bg-[#FFFFFF]','text-black');
+    rejectedbtn.classList.add('bg-[#FFFFFF]','text-black');
+
+    const selected = document.getElementById(id);
+    currentStatus = id;
+
+    // active style
+    selected.classList.remove('bg-[#FFFFFF]','text-black');
+    selected.classList.add('bg-[#3B82F6]','text-white');
+
+    if(id === 'all-filter-btn'){
+        allcardParent.classList.remove('hidden');
+        filterSectoin.classList.add('hidden');
+        noJobs.classList.add('hidden');
     }
 
+    else if(id === 'Interview-filter-btn'){
+        allcardParent.classList.add('hidden');
+        filterSectoin.classList.remove('hidden');
+        renderInterview();
+    }
 
-})
-function renderTriving() {
-    filtersection.innerHTML = 'Interview';
-    for (let Interview of InterviewList) {
-        console.log(Interview);
+    else if(id === 'Rejected-filter-btn'){
+        allcardParent.classList.add('hidden');
+        filterSectoin.classList.remove('hidden');
+        renderrejected();
+    }
 
-        let div = document.createElement('div');
-        div.className = 'py-1'
-        div.innerHTML = `
-          <div class="flex justify-between border border-gray-300 border-l-cyan-300 border-l-3 rounded-sm shadow-lg bg-[#FFFFFF] md:gap-9  ">
-                <div class="p-5">
-                    <h2 class="first   text-[#002C5C] text-[20px] font-semibold">Mobile First Corp</h2>
-                    <p class=" firstt text-[#64748B]">React Native Developer</p>
-                    <p class="firsttt py-4 text-[#64748B]">Remote . Full-time . $130,000 - $175,000</p>
-                    <button id="NotAppliedBtn" class="btn btn-active">Not Applied</button>
-                    <p class="py-3 firstttt">Build cross-platform mobile applications using React Native. Work on products used
-                        by millions of users worldwide.</p>
-                    <div class="flex gap-5">
-                        <button id="interviewCountBtn" class="btn btn-outline btn-success">interview</button>
-                        <button id="RejectedCountBtn" class="btn btn-outline btn-error">Rejected</button>
-                    </div>
-                </div>
-                <div>
-                    <p id="deleteBnt"
-                        class="p-2 mt-4 mr-4 border border-slate-300 rounded-full hover:bg-red-500 duration-500 cursor-pointer hover:text-gray-50">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </p>
-                </div>
+    calculateCount();
+}
+//..................
+mainContainer.addEventListener('click',function(event){
+
+    // interview
+    if(event.target.classList.contains('interview-btn')){
+
+        const parentNode = event.target.closest('.job-card');
+        const mobileShop = parentNode.querySelector('.mobile-shop').innerText;
+
+        parentNode.querySelector('.Not-Applied-button').innerText ='interview';
+
+        if(!Interviewbox.find(i=>i.mobileShop===mobileShop)){
+            Interviewbox.push({mobileShop, notApplicate:'interview'});
+        }
+
+        Rejectedbox = Rejectedbox.filter(i=>i.mobileShop!==mobileShop);
+
+        calculateCount();
+
+        if(currentStatus==='Interview-filter-btn') renderInterview();
+        if(currentStatus==='Rejected-filter-btn') renderrejected();
+    }
+
+    // rejected
+    else if(event.target.classList.contains('rejected-btn')){
+
+        const parentNode = event.target.closest('.job-card');
+        const mobileShop = parentNode.querySelector('.mobile-shop').innerText;
+
+        parentNode.querySelector('.Not-Applied-button').innerText ='Rejected';
+
+        if(!Rejectedbox.find(i=>i.mobileShop===mobileShop)){
+            Rejectedbox.push({mobileShop, notApplicate:'Rejected'});
+        }
+
+        Interviewbox = Interviewbox.filter(i=>i.mobileShop!==mobileShop);
+
+        calculateCount();
+
+        if(currentStatus==='Interview-filter-btn') renderInterview();
+        if(currentStatus==='Rejected-filter-btn') renderrejected();
+    }
+
+    // delete
+    else if(event.target.closest('.delete-btn')){
+
+        const card = event.target.closest('.job-card');
+        if(card){
+
+            const shopName = card.querySelector('.mobile-shop').innerText;
+            card.remove();
+
+            Interviewbox = Interviewbox.filter(i=>i.mobileShop!==shopName);
+            Rejectedbox = Rejectedbox.filter(i=>i.mobileShop!==shopName);
+
+            calculateCount();
+
+            if(currentStatus==='Interview-filter-btn') renderInterview();
+            else if(currentStatus==='Rejected-filter-btn') renderrejected();
+        }
+    }
+
+});
+
+function renderInterview(){
+
+    filterSectoin.innerHTML='';
+
+    if(Interviewbox.length===0){
+        noJobs.classList.remove('hidden');
+    }else{
+        noJobs.classList.add('hidden');
+    }
+
+    for(let interview of Interviewbox){
+
+        let div=document.createElement('div');
+        div.className='mb-5 job-card flex justify-between border border-gray-300 rounded-sm shadow-lg bg-[#FFFFFF] md:gap-9 relative';
+
+        div.innerHTML=`
+
+        <p class="delete-btn absolute right-4 top-4 p-2 border border-slate-300 rounded-full hover:bg-red-500 duration-500 cursor-pointer hover:text-gray-50">
+            <i class="fa-regular fa-trash-can"></i>
+        </p>
+
+        <div class="p-5 w-full">
+            <h2 class="mobile-shop text-[#002C5C] text-[20px] font-semibold">${interview.mobileShop}</h2>
+            <p class="native-Developer text-[#64748B]">React Native Developer</p>
+            <p class="full-time py-4 text-[#64748B]">Remote . Full-time . $130,000 - $175,000</p>
+            <button class="Not-Applied-button btn btn-active">${interview.notApplicate}</button>
+            <p class="cross-platform py-3">
+            Build cross-platform mobile applications using React Native.
+            </p>
+            <div class="flex gap-5">
+                <button class="interview-btn btn btn-outline btn-success">interview</button>
+                <button class="rejected-btn btn btn-outline btn-error">Rejected</button>
             </div>
+        </div>
+        `;
 
-      `
-      filtersection.appendChild(div);
+        filterSectoin.appendChild(div);
     }
 }
 
+function renderrejected(){
 
+    filterSectoin.innerHTML='';
 
+    if(Rejectedbox.length===0){
+        noJobs.classList.remove('hidden');
+    }else{
+        noJobs.classList.add('hidden');
+    }
 
+    for(let rejected of Rejectedbox){
 
+        let div=document.createElement('div');
+        div.className='mb-5 job-card flex justify-between border border-gray-300 rounded-sm shadow-lg bg-[#FFFFFF] md:gap-9 relative';
 
+        div.innerHTML=`
 
+        <p class="delete-btn absolute right-4 top-4 p-2 border border-slate-300 rounded-full hover:bg-red-500 duration-500 cursor-pointer hover:text-gray-50">
+            <i class="fa-regular fa-trash-can"></i>
+        </p>
 
+        <div class="p-5 w-full">
+            <h2 class="mobile-shop text-[#002C5C] text-[20px] font-semibold">${rejected.mobileShop}</h2>
+            <p class="native-Developer text-[#64748B]">React Native Developer</p>
+            <p class="full-time py-4 text-[#64748B]">Remote . Full-time . $130,000 - $175,000</p>
+            <button class="Not-Applied-button btn btn-active">${rejected.notApplicate}</button>
+            <p class="cross-platform py-3">
+            Build cross-platform mobile applications using React Native.
+            </p>
+            <div class="flex gap-5">
+                <button class="interview-btn btn btn-outline btn-success">interview</button>
+                <button class="rejected-btn btn btn-outline btn-error">Rejected</button>
+            </div>
+        </div>
+        `;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        filterSectoin.appendChild(div);
+    }
+};
