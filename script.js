@@ -1,7 +1,9 @@
-//..............................
-let Interviewbox = [];
-let Rejectedbox = [];
-let currentStatus = 'all';
+///.....................
+
+
+let IntervieCount = [];
+let RejectedCount = [];
+let currentStatusCount = 'all';
 
 let total = document.getElementById("total");
 let interview = document.getElementById("interview");
@@ -23,14 +25,14 @@ function calculateCount(){
     const totalJobs = allcardParent.children.length;
 
     total.innerText = totalJobs;
-    interview.innerText = Interviewbox.length;
-    rejected.innerText = Rejectedbox.length;
+    interview.innerText = IntervieCount.length;
+    rejected.innerText = RejectedCount.length;
 
-    if(currentStatus === 'Interview-filter-btn'){
-        jobsCount.innerText = `${Interviewbox.length} of ${totalJobs} jobs`;
+    if(currentStatusCount === 'Interview-filter-btn'){
+        jobsCount.innerText = `${IntervieCount.length} of ${totalJobs} jobs`;
     }
-    else if(currentStatus === 'Rejected-filter-btn'){
-        jobsCount.innerText = `${Rejectedbox.length} of ${totalJobs} jobs`;
+    else if(currentStatusCount === 'Rejected-filter-btn'){
+        jobsCount.innerText = `${RejectedCount.length} of ${totalJobs} jobs`;
     }
     else{
         jobsCount.innerText = `${totalJobs} jobs`;
@@ -50,7 +52,7 @@ function toggleStyle(id){
     rejectedbtn.classList.add('bg-[#FFFFFF]','text-black');
 
     const selected = document.getElementById(id);
-    currentStatus = id;
+    currentStatusCount = id;
 
     selected.classList.remove('bg-[#FFFFFF]','text-black');
     selected.classList.add('bg-[#3B82F6]','text-white');
@@ -89,16 +91,16 @@ mainContainer.addEventListener('click',function(event){
         parentNode.querySelector('.Not-Applied-button, .Not-Applied')
             .innerText = 'interview';
 
-        if(!Interviewbox.find(i=>i.mobileShop===mobileShop)){
-            Interviewbox.push({mobileShop, notApplicate:'interview'});
+        if(!IntervieCount.find(i=>i.mobileShop===mobileShop)){
+            IntervieCount.push({mobileShop, notApplicate:'interview'});
         }
 
-        Rejectedbox = Rejectedbox.filter(i=>i.mobileShop!==mobileShop);
+        RejectedCount = RejectedCount.filter(i=>i.mobileShop!==mobileShop);
 
         calculateCount();
 
-        if(currentStatus==='Interview-filter-btn') renderInterview();
-        if(currentStatus==='Rejected-filter-btn') renderrejected();
+        if(currentStatusCount==='Interview-filter-btn') renderInterview();
+        if(currentStatusCount==='Rejected-filter-btn') renderrejected();
     }
 
     // rejected click
@@ -112,16 +114,16 @@ mainContainer.addEventListener('click',function(event){
         parentNode.querySelector('.Not-Applied-button, .Not-Applied')
             .innerText = 'Rejected';
 
-        if(!Rejectedbox.find(i=>i.mobileShop===mobileShop)){
-            Rejectedbox.push({mobileShop, notApplicate:'Rejected'});
+        if(!RejectedCount.find(i=>i.mobileShop===mobileShop)){
+            RejectedCount.push({mobileShop, notApplicate:'Rejected'});
         }
 
-        Interviewbox = Interviewbox.filter(i=>i.mobileShop!==mobileShop);
+        IntervieCount = IntervieCount.filter(i =>i.mobileShop!== mobileShop);
 
         calculateCount();
 
-        if(currentStatus==='Interview-filter-btn') renderInterview();
-        if(currentStatus==='Rejected-filter-btn') renderrejected();
+        if(currentStatusCount==='Interview-filter-btn') renderInterview();
+        if(currentStatusCount==='Rejected-filter-btn') renderrejected();
     }
 
     // delete click
@@ -136,13 +138,13 @@ mainContainer.addEventListener('click',function(event){
 
             card.remove();
 
-            Interviewbox = Interviewbox.filter(i=>i.mobileShop!==shopName);
-            Rejectedbox = Rejectedbox.filter(i=>i.mobileShop!==shopName);
+            IntervieCount = IntervieCount.filter(i=>i.mobileShop!==shopName);
+            RejectedCount = RejectedCount.filter(i=>i.mobileShop!==shopName);
 
             calculateCount();
 
-            if(currentStatus==='Interview-filter-btn') renderInterview();
-            else if(currentStatus==='Rejected-filter-btn') renderrejected();
+            if(currentStatusCount==='Interview-filter-btn') renderInterview();
+            else if(currentStatusCount==='Rejected-filter-btn') renderrejected();
         }
     }
 });
@@ -151,13 +153,13 @@ function renderInterview(){
 
     filterSectoin.innerHTML='';
 
-    if(Interviewbox.length===0){
+    if(IntervieCount.length===0){
         noJobs.classList.remove('hidden');
     }else{
         noJobs.classList.add('hidden');
     }
 
-    for(let interview of Interviewbox){
+    for(let interview of IntervieCount){
 
         let div=document.createElement('div');
         div.className='mb-5 job-card flex justify-between border border-gray-300 rounded-sm shadow-lg bg-[#FFFFFF] md:gap-9 relative';
@@ -190,13 +192,13 @@ function renderrejected(){
 
     filterSectoin.innerHTML='';
 
-    if(Rejectedbox.length===0){
+    if(RejectedCount.length===0){
         noJobs.classList.remove('hidden');
     }else{
         noJobs.classList.add('hidden');
     }
 
-    for(let rejected of Rejectedbox){
+    for(let rejected of RejectedCount){
 
         let div=document.createElement('div');
         div.className='mb-5 job-card flex justify-between border border-gray-300 rounded-sm shadow-lg bg-[#FFFFFF] md:gap-9 relative';
