@@ -1,6 +1,4 @@
-
-///...............
-
+//..............................
 let Interviewbox = [];
 let Rejectedbox = [];
 let currentStatus = 'all';
@@ -41,16 +39,12 @@ function calculateCount(){
 
 calculateCount();
 
-
-//...........................
 function toggleStyle(id){
 
-    // remove active color
     allfilterbtn.classList.remove('bg-[#3B82F6]','text-white');
     interviebtn.classList.remove('bg-[#3B82F6]','text-white');
     rejectedbtn.classList.remove('bg-[#3B82F6]','text-white');
 
-    // default style (আগের মতো)
     allfilterbtn.classList.add('bg-[#FFFFFF]','text-black');
     interviebtn.classList.add('bg-[#FFFFFF]','text-black');
     rejectedbtn.classList.add('bg-[#FFFFFF]','text-black');
@@ -58,7 +52,6 @@ function toggleStyle(id){
     const selected = document.getElementById(id);
     currentStatus = id;
 
-    // active style
     selected.classList.remove('bg-[#FFFFFF]','text-black');
     selected.classList.add('bg-[#3B82F6]','text-white');
 
@@ -82,16 +75,19 @@ function toggleStyle(id){
 
     calculateCount();
 }
-//..................
+
 mainContainer.addEventListener('click',function(event){
 
-    // interview
+    // interview click
     if(event.target.classList.contains('interview-btn')){
 
         const parentNode = event.target.closest('.job-card');
-        const mobileShop = parentNode.querySelector('.mobile-shop').innerText;
 
-        parentNode.querySelector('.Not-Applied-button').innerText ='interview';
+        const mobileShop =
+            parentNode.querySelector('.mobile-shop, .Mobile-First-Corp').innerText;
+
+        parentNode.querySelector('.Not-Applied-button, .Not-Applied')
+            .innerText = 'interview';
 
         if(!Interviewbox.find(i=>i.mobileShop===mobileShop)){
             Interviewbox.push({mobileShop, notApplicate:'interview'});
@@ -105,13 +101,16 @@ mainContainer.addEventListener('click',function(event){
         if(currentStatus==='Rejected-filter-btn') renderrejected();
     }
 
-    // rejected
+    // rejected click
     else if(event.target.classList.contains('rejected-btn')){
 
         const parentNode = event.target.closest('.job-card');
-        const mobileShop = parentNode.querySelector('.mobile-shop').innerText;
 
-        parentNode.querySelector('.Not-Applied-button').innerText ='Rejected';
+        const mobileShop =
+            parentNode.querySelector('.mobile-shop, .Mobile-First-Corp').innerText;
+
+        parentNode.querySelector('.Not-Applied-button, .Not-Applied')
+            .innerText = 'Rejected';
 
         if(!Rejectedbox.find(i=>i.mobileShop===mobileShop)){
             Rejectedbox.push({mobileShop, notApplicate:'Rejected'});
@@ -125,13 +124,16 @@ mainContainer.addEventListener('click',function(event){
         if(currentStatus==='Rejected-filter-btn') renderrejected();
     }
 
-    // delete
+    // delete click
     else if(event.target.closest('.delete-btn')){
 
         const card = event.target.closest('.job-card');
+
         if(card){
 
-            const shopName = card.querySelector('.mobile-shop').innerText;
+            const shopName =
+                card.querySelector('.mobile-shop, .Mobile-First-Corp').innerText;
+
             card.remove();
 
             Interviewbox = Interviewbox.filter(i=>i.mobileShop!==shopName);
@@ -143,7 +145,6 @@ mainContainer.addEventListener('click',function(event){
             else if(currentStatus==='Rejected-filter-btn') renderrejected();
         }
     }
-
 });
 
 function renderInterview(){
@@ -162,7 +163,6 @@ function renderInterview(){
         div.className='mb-5 job-card flex justify-between border border-gray-300 rounded-sm shadow-lg bg-[#FFFFFF] md:gap-9 relative';
 
         div.innerHTML=`
-
         <p class="delete-btn absolute right-4 top-4 p-2 border border-slate-300 rounded-full hover:bg-red-500 duration-500 cursor-pointer hover:text-gray-50">
             <i class="fa-regular fa-trash-can"></i>
         </p>
@@ -202,7 +202,6 @@ function renderrejected(){
         div.className='mb-5 job-card flex justify-between border border-gray-300 rounded-sm shadow-lg bg-[#FFFFFF] md:gap-9 relative';
 
         div.innerHTML=`
-
         <p class="delete-btn absolute right-4 top-4 p-2 border border-slate-300 rounded-full hover:bg-red-500 duration-500 cursor-pointer hover:text-gray-50">
             <i class="fa-regular fa-trash-can"></i>
         </p>
@@ -224,4 +223,4 @@ function renderrejected(){
 
         filterSectoin.appendChild(div);
     }
-};
+}
